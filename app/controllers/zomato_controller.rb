@@ -18,6 +18,9 @@ class ZomatoController < ApplicationController
          req.params['lon'] = longitude
       end
 
-      render json: JSON.parse(resp.body)
+      resp = JSON.parse(resp.body)
+      resp = resp["nearby_restaurants"]
+
+      render json: resp
    end
 end
