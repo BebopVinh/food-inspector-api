@@ -1,22 +1,26 @@
 class RestaurantsController < ApplicationController
    def get_coordinates(location)
-      location = location.downcase.gsub(/\s+/, "")
       conn = Faraday.new(
-         url: `http://www.mapquestapi.com/geocoding/v1`,
+         url: `http://www.mapquestapi.com/geocoding/v1/address`,
          params: {
-            key: "EF1AZhfMvqfQK2Z2J2biWZf0lBvl9qsH"
+            key: "EF1AZhfMvqfQK2Z2J2biWZf0lBvl9qsH",
+            location: location.downcase
          },
          headers: {'Content-Type' => 'application/json'}
       )
 
-      resp = conn.get('address') do |req|
-         req.params['location'] = location
+      resp = conn.get('') do |req|
       end
-      resp = JSON.parse(resp.body)
+
+      puts resp
+
+      coords = JSON.parse(resp.body)["results"][0]["locations"][0]["latLng"]
+      binding.pry
    end
 
 
-   def restaurants
+   def create
       coords_hash = get_coordinates(params[:location])
+      binding.pry
    end
 end
