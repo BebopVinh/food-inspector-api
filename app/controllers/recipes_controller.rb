@@ -17,7 +17,6 @@ class RecipesController < ApplicationController
       end
 
       resp = JSON.parse(resp.body)["hits"]
-      # binding.pry
       render json: resp
    end
 end
