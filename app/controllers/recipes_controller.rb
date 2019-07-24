@@ -1,5 +1,6 @@
 class RecipesController < ApplicationController
    def create
+
       query = params[:recipe].downcase.gsub(" ", "-")
 
       conn = Faraday.new(
