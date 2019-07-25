@@ -6,4 +6,6 @@ Rails.application.routes.draw do
 
   resources :recipes, only: [:create]
   resources :restaurants, only: [:create]
+
+  post '/set_allergen', to: 'users#set_allergen'
 end
