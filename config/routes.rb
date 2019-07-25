@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   resources :restaurants, only: [:create]
 
   post '/set_allergen', to: 'users#set_allergen'
+  post '/sign_up', to: 'users#sign_up'
 end
