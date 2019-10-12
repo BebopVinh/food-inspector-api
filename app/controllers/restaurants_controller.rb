@@ -15,6 +15,5 @@ class RestaurantsController < ApplicationController
       restaurants = Restaurant.clean_results(json)
       
       render json: restaurants
-      
    end
 end
