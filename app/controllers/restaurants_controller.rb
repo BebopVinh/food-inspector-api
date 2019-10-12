@@ -1,16 +1,4 @@
 class RestaurantsController < ApplicationController
-   def get_coordinates(location)
-      url = URI.parse("http://www.mapquestapi.com/geocoding/v1/address")
-      location = location.downcase.gsub(/\s*,\s/, ",");
-      resp = Faraday.get(
-         url,
-         {key: "EF1AZhfMvqfQK2Z2J2biWZf0lBvl9qsH", location: location},
-         {'Accept' => 'application/json'}
-         )
-      coords = JSON.parse(resp.body)['results'].first['locations'].first['latLng']
-   end
-
-
    def create
       coords = get_coordinates(params[:location])
       url = URI.parse("https://us-restaurant-menus.p.rapidapi.com")
