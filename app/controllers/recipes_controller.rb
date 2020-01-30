@@ -6,7 +6,7 @@ class RecipesController < ApplicationController
          url: "https://api.edamam.com",
          params: {
             app_id: 'dc035cbf',
-            app_key: 'eb981448e12e3facff6bc28a5ba1777f',
+            app_key: ENV["EDAMAM_RECIPE_KEY"],
             from: 0,
             to: 9
          },
