@@ -1,11 +1,16 @@
 class RestaurantsController < ApplicationController
-   def get_coordinates
-      url = URI.parse("")
+   def get_coordinates(location)
+      url = URI.parse("http://www.mapquestapi.com/geocoding/v1/address")
+      resp = Faraday.get(url) do |req|
+         req.params["key"] = ENV["MAPQUEST_KEY"]
+         req.params["location"] = location
+      end
+      data = JSON.parse(resp.body)
+      return data["results"].first["locations"].first["latLng"]
    end
 
    def create
       coords = get_coordinates(params[:location])
-      binding.pry
       url = URI.parse("https://us-restaurant-menus.p.rapidapi.com")
       resp = Faraday.get(url + "/restaurants/search") do |req|
          req.headers['X-RapidAPI-Host'] = "us-restaurant-menus.p.rapidapi.com"
@@ -16,9 +21,8 @@ class RestaurantsController < ApplicationController
          req.params["fullmenu"] = true
       end
 
-      json = JSON.parse(resp.body)
-      restaurants = Restaurant.clean_results(json)
-      
+      binding.pry
+      restaurants = JSON.parse(resp.body)
       render json: restaurants
    end
 
