@@ -21,7 +21,7 @@ class RestaurantsController < ApplicationController
          req.params["fullmenu"] = true
       end
 
-      binding.pry
+      #binding.pry
       restaurants = JSON.parse(resp.body)
       render json: restaurants
    end
